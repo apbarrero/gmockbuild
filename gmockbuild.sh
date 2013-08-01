@@ -4,6 +4,19 @@ gmock_version='1.6.0'
 gmocksrcdir=$(mktemp -u -d)
 prefix=/usr/local
 
+# Options parsing
+while getopts "p:" OPTION
+do
+    case $OPTION in
+        p)
+            prefix=$OPTARG
+            ;;
+        ?)
+            exit
+            ;;
+    esac
+done
+
 # Get GoogleMock sources
 svn export http://googlemock.googlecode.com/svn/tags/release-$gmock_version $gmocksrcdir
 if [ "$?" -ne "0" ]; then
