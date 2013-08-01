@@ -10,6 +10,14 @@ if [ "$?" -ne "0" ]; then
     exit 1
 fi
 
+# Apply patch if available
+gmock_patch="$(pwd)/patches/gmock-$gmock_version.patch"
+if [ -f "$gmock_patch" ]; then
+    pushd $gmocksrcdir
+    patch -p0 -i $gmock_patch
+    popd
+fi
+
 # Build shared libraries
 cd $gmocksrcdir
 mkdir build && cd build

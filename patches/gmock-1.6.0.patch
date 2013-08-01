@@ -1,0 +1,17 @@
+Index: CMakeLists.txt
+===================================================================
+--- CMakeLists.txt	(revision 441)
++++ CMakeLists.txt	(working copy)
+@@ -11,8 +11,10 @@
+ 
+ # Forces BUILD_SHARED_LIBS to OFF as Google Mock currently does not support
+ # working in a DLL.
+-# TODO(vladl@google.com): Implement building gMock as a DLL.
+-set(BUILD_SHARED_LIBS OFF)
++if (WIN32)
++    # TODO(vladl@google.com): Implement building gMock as a DLL.
++    set(BUILD_SHARED_LIBS OFF)
++endif (WIN32)
+ 
+ option(gmock_build_tests "Build all of Google Mock's own tests." OFF)
+ 
