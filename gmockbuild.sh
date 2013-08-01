@@ -4,14 +4,29 @@ gmock_version='1.6.0'
 gmocksrcdir=$(mktemp -u -d)
 prefix=/usr/local
 
+function usage
+{
+    cat <<EOF
+Usage: $0 [options]
+
+-h            print this help message.
+-p <path>     provide installation prefix path (Default: $prefix).
+EOF
+}
+
 # Options parsing
-while getopts "p:" OPTION
+while getopts "hp:" OPTION
 do
     case $OPTION in
+        h)
+            usage
+            exit 0
+            ;;
         p)
             prefix=$OPTARG
             ;;
         ?)
+            usage
             exit
             ;;
     esac
