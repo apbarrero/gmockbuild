@@ -3,19 +3,22 @@
 gmock_version='1.6.0'
 gmocksrcdir=$(mktemp -u -d)
 prefix=/usr/local
+update_ldconf=false
 
 function usage
 {
     cat <<EOF
 Usage: $0 [options]
 
--h            print this help message.
--p <path>     provide installation prefix path (Default: $prefix).
+-h              print this help message.
+-p <path>       provide installation prefix path (Default: $prefix).
+-l              update ldconfig cache to include <prefix>/lib path.
+                (Requires root privileges).
 EOF
 }
 
 # Options parsing
-while getopts "hp:" OPTION
+while getopts "hp:l" OPTION
 do
     case $OPTION in
         h)
@@ -24,6 +27,9 @@ do
             ;;
         p)
             prefix=$OPTARG
+            ;;
+        l)
+            update_ldconf=true
             ;;
         ?)
             usage
@@ -68,4 +74,14 @@ done
 
 # Remove sources
 rm -rf $gmocksrcdir
+
+# Update ldconfig cache
+if [ "$update_ldconf" == "true" ]; then
+    ldconf_dir="$prefix/lib"
+    grep $ldconf_dir /etc/ld.so.conf
+    if [ "$?" -ne "0" ]; then
+        echo $ldconf_dir >> /etc/ld.so.conf
+        ldconfig
+    fi
+fi
 
