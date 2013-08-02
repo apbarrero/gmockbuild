@@ -11,7 +11,7 @@ cd gmockbuild && ./gmockbuild.sh
 ```
 
 Default installation prefix is `/usr/local` so you may require root privileges to run the script.
-Use option `-p <prefix path>` to install somewher else.
+Use option `-p <prefix path>` to install somewhere else.
 
 For details on script options just run:
 
