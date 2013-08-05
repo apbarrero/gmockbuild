@@ -1,7 +1,7 @@
 #!/bin/bash
 
 gmock_version='1.6.0'
-gmocksrcdir=$(mktemp -u -d)
+gmocksrcdir=$(mktemp -d -u /tmp/tmp.XXXXX)
 prefix=/usr/local
 update_ldconf=false
 
