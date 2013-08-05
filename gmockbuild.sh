@@ -81,7 +81,7 @@ if [ "$update_ldconf" == "true" ]; then
     grep $ldconf_dir /etc/ld.so.conf
     if [ "$?" -ne "0" ]; then
         echo $ldconf_dir >> /etc/ld.so.conf
-        ldconfig
     fi
+    ldconfig
 fi
 
