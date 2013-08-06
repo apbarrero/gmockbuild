@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Configuration
+os=$(uname -s)
+case $os in
+    "Darwin")
+        lib_suffix="dylib"
+        ;;
+    "linux")
+        lib_suffix="so"
+        ;;
+    ?)
+        echo "Platform $os not supported"
+        exit 1
+        ;;
+esac
+
+# Defaults
 gmock_version='1.6.0'
 gmocksrcdir=$(mktemp -d -u /tmp/tmp.XXXXX)
 prefix=/usr/local
@@ -64,7 +80,7 @@ for subdir in "${subdirs[@]}"
 do
     test -d $prefix/$subdir || mkdir -p $prefix/$subdir
 done
-find . -name "lib*.so" -exec cp {} $prefix/lib/ \;
+find . -name "lib*.$lib_suffix" -exec cp {} $prefix/lib/ \;
 
 includes=( $gmocksrcdir/include $gmocksrcdir/gtest/include )
 for inc in "${includes[@]}"
