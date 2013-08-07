@@ -6,7 +6,7 @@ case $os in
     "Darwin")
         lib_suffix="dylib"
         ;;
-    "linux")
+    "Linux")
         lib_suffix="so"
         ;;
     ?)
