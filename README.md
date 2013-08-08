@@ -3,6 +3,12 @@ gmockbuild
 
 Script to build and install [Google Mock](https://code.google.com/p/googlemock/) library
 
+## Requirements ##
+
+* [curl](http://curl.haxx.se/) to download sources.
+* [cmake](http://www.cmake.org/) >= 2.6.2 to generate platform specific Makefiles.
+* A native C++ compiler for your platform.
+
 ## Usage ##
 
 ```shell
@@ -18,3 +24,7 @@ For details on script options just run:
 ```shell
 ./gmockbuild.sh -h
 ```
+
+## Tested platforms ##
+
+* Ubuntu 13.04, curl 7.29.0, cmake 2.8.10.1, gcc 4.7.3
