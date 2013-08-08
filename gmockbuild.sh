@@ -17,7 +17,7 @@ esac
 
 # Defaults
 gmock_version='1.6.0'
-gmocksrcdir=$(mktemp -d -u /tmp/tmp.XXXXX)
+workdir=$(mktemp -d /tmp/tmp.XXXXX)
 prefix=/usr/local
 update_ldconf=false
 
@@ -55,10 +55,9 @@ do
 done
 
 # Get GoogleMock sources
-svn export http://googlemock.googlecode.com/svn/tags/release-$gmock_version $gmocksrcdir
-if [ "$?" -ne "0" ]; then
-    exit 1
-fi
+curl https://googlemock.googlecode.com/files/gmock-$gmock_version.zip > $workdir/gmock-$gmock_version.zip || exit 1
+unzip -d $workdir $workdir/gmock-$gmock_version.zip || exit 1
+gmocksrcdir=$workdir/gmock-$gmock_version
 
 # Apply patch if available
 gmock_patch="$(pwd)/patches/gmock-$gmock_version.patch"
@@ -88,8 +87,8 @@ do
     cp -r $inc/* $prefix/include/
 done
 
-# Remove sources
-rm -rf $gmocksrcdir
+# Remove workspace directory
+rm -rf $workdir
 
 # Update ldconfig cache
 if [ "$update_ldconf" == "true" ]; then
