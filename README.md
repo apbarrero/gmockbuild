@@ -28,3 +28,4 @@ For details on script options just run:
 ## Tested platforms ##
 
 * Ubuntu 13.04, curl 7.29.0, cmake 2.8.10.1, gcc 4.7.3
+* Mac OS X 10.7.5, curl 7.21.4, cmake 2.8.11.2, Clang 4.2.0
