@@ -16,7 +16,7 @@ case $os in
 esac
 
 # Defaults
-gmock_version='1.6.0'
+gmock_version='1.7.0'
 workdir=$(mktemp -d /tmp/tmp.XXXXX)
 prefix=/usr/local
 update_ldconf=false
