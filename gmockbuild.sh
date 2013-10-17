@@ -27,6 +27,7 @@ function usage
 Usage: $0 [options]
 
 -h              print this help message.
+-v              gmock version to build (Default: $gmock_version)
 -p <path>       provide installation prefix path (Default: $prefix).
 -l              update ldconfig cache to include <prefix>/lib path.
                 (Requires root privileges).
@@ -34,12 +35,15 @@ EOF
 }
 
 # Options parsing
-while getopts "hp:l" OPTION
+while getopts "hv:p:l" OPTION
 do
     case $OPTION in
         h)
             usage
             exit 0
+            ;;
+        v)
+            gmock_version=$OPTARG
             ;;
         p)
             prefix=$OPTARG
