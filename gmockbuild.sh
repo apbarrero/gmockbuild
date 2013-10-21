@@ -19,6 +19,7 @@ esac
 gmock_version='1.7.0'
 workdir=$(mktemp -d /tmp/tmp.XXXXX)
 prefix=/usr/local
+shared="yes"
 update_ldconf=false
 
 function usage
@@ -29,13 +30,15 @@ Usage: $0 [options]
 -h              print this help message.
 -v              gmock version to build (Default: $gmock_version)
 -p <path>       provide installation prefix path (Default: $prefix).
+-s              build static libraries, default is shared.
 -l              update ldconfig cache to include <prefix>/lib path.
+                Option is ignored if -s is present.
                 (Requires root privileges).
 EOF
 }
 
 # Options parsing
-while getopts "hv:p:l" OPTION
+while getopts "hv:p:sl" OPTION
 do
     case $OPTION in
         h)
@@ -47,6 +50,10 @@ do
             ;;
         p)
             prefix=$OPTARG
+            ;;
+        s)
+            shared="no"
+            lib_suffix="a"
             ;;
         l)
             update_ldconf=true
@@ -74,7 +81,11 @@ fi
 # Build shared libraries
 cd $gmocksrcdir
 mkdir build && cd build
-cmake -DBUILD_SHARED_LIBS=ON ..
+local cmake_options=""
+if [ "$shared" == "yes" ]; then
+   cmake_options="-DBUILD_SHARED_LIBS=ON"
+fi
+cmake $cmake_options ..
 make
 
 # Install
@@ -95,7 +106,7 @@ done
 rm -rf $workdir
 
 # Update ldconfig cache
-if [ "$update_ldconf" == "true" ]; then
+if [ "$shared" == "yes" -a "$update_ldconf" == "true" ]; then
     ldconf_dir="$prefix/lib"
     grep $ldconf_dir /etc/ld.so.conf
     if [ "$?" -ne "0" ]; then
