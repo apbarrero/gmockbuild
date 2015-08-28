@@ -1,6 +1,8 @@
 gmockbuild
 ==========
 
+[![Travis CI build](https://secure.travis-ci.org/apbarrero/gmockbuild.png?branch=master)](https://travis-ci.org/apbarrero/gmockbuild)
+
 Script to build and install [Google Mock](https://code.google.com/p/googlemock/) library
 
 ## Requirements ##
