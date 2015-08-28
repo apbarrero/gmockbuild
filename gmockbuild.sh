@@ -28,7 +28,7 @@ function usage
 Usage: $0 [options]
 
 -h              print this help message.
--v              gmock version to build (Default: $gmock_version)
+-v <version>    gmock version to build (Default: $gmock_version)
 -p <path>       provide installation prefix path (Default: $prefix).
 -s              build static libraries, default is shared.
 -l              update ldconfig cache to include <prefix>/lib path.
